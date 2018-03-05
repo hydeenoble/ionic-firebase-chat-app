@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MESSAGE_LIST} from "../../mocks/messages/messages";
+import {Message} from "../../models/messages/message";
 
 /**
  * Generated class for the InboxPage page.
@@ -16,7 +17,7 @@ import {MESSAGE_LIST} from "../../mocks/messages/messages";
 })
 export class InboxPage {
 
-  messageList = MESSAGE_LIST
+  messageList: Message[] = MESSAGE_LIST;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     console.log(this.messageList);
