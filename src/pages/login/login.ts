@@ -19,7 +19,7 @@ export class LoginPage {
   constructor(private toast: ToastController, private navCtrl: NavController, private navParams: NavParams) {
   }
 
-  login(event){
+  login(event: LoginResponse){
     console.log("event", event);
 
     if(!event.error){
