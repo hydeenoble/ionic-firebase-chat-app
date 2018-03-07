@@ -27,4 +27,16 @@ export class AuthProvider {
       };
     }
   }
+
+  async createUserWithEmailAndPassword(account: Account){
+    try{
+      return <LoginResponse> {
+        result: await this.auth.auth.createUserWithEmailAndPassword(account.email, account.password)
+      }
+    }catch (e){
+      return <LoginResponse> {
+        error: e
+      };
+    }
+  }
 }
