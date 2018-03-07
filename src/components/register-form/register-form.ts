@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth'
+import { Account } from "../../models/account/account";
+import { ToastController } from "ionic-angular";
 
 /**
  * Generated class for the RegisterFormComponent component.
@@ -12,12 +15,28 @@ import { Component } from '@angular/core';
 })
 export class RegisterFormComponent {
 
+  account = {} as Account;
 
-  constructor() {
-    console.log('Hello RegisterFormComponent Component');
+  constructor(private toast: ToastController, private afAuth: AngularFireAuth) {
   }
 
-  register(){
+  async register(){
+    try{
+      const result  = await this.afAuth.auth
+        .createUserWithEmailAndPassword(this.account.email, this.account.password)
+      this.toast.create({
+        message: 'Account successfully created',
+        duration: 3000
+      }).present();
+
+      console.log(result);
+    }catch (e){
+      console.log(e)
+      this.toast.create({
+        message: e.message,
+        duration: 3000
+      }).present();
+    }
 
   }
 
