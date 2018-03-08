@@ -1,4 +1,4 @@
-import { Component, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {Profile} from "../../models/profile/profiles";
 import {DataProvider} from "../../providers/data/data";
 import {AuthProvider} from "../../providers/auth/auth";
@@ -22,18 +22,22 @@ export class EditProfileFormComponent implements OnDestroy{
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
 
+  @Output() saveProfileResult: EventEmitter<Boolean>;
+
   constructor(private auth: AuthProvider, private data: DataProvider) {
     this.authenticatedUser$ = this.auth.getAuthenticatedUser()
       .subscribe((user: User) => {
         this.authenticatedUser = user;
       });
+
+    this.saveProfileResult = new EventEmitter<Boolean>();
   }
 
   async saveProfile(){
     if (this.authenticatedUser){
       this.profile.email = this.authenticatedUser.email;
       const result =  await this.data.saveProfile(this.authenticatedUser, this.profile);
-      console.log(result);
+      this.saveProfileResult.emit(result);
     }
   }
 
