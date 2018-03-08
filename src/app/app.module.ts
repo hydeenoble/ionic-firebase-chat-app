@@ -9,6 +9,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { AuthProvider } from '../providers/auth/auth';
+import { DataProvider } from '../providers/data/data';
+import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { AuthProvider } from '../providers/auth/auth';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,7 +31,8 @@ import { AuthProvider } from '../providers/auth/auth';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    DataProvider
   ]
 })
 export class AppModule {}

@@ -39,4 +39,8 @@ export class AuthProvider {
       };
     }
   }
+
+  getAuthenticatedUser(){
+    return this.auth.authState;
+  }
 }
