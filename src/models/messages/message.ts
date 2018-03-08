@@ -1,7 +1,7 @@
-import {User} from "../user/user";
+import {Profile} from "../profile/profiles";
 
 export interface Message{
-  user: User;
+  user: Profile;
   date: Date;
   lastMessage: string;
 }

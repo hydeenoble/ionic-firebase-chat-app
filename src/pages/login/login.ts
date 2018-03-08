@@ -28,7 +28,7 @@ export class LoginPage {
         duration: 3000
       }).present();
 
-      this.navCtrl.setRoot('ProfilePage')
+      this.navCtrl.setRoot('EditProfilePage')
     }else{
       this.toast.create({
         message: event.error.message,
