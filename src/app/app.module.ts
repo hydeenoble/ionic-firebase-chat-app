@@ -11,6 +11,7 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { AuthProvider } from '../providers/auth/auth';
 import { DataProvider } from '../providers/data/data';
 import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
