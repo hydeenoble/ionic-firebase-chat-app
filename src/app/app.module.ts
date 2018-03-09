@@ -12,6 +12,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DataProvider } from '../providers/data/data';
 import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
 import {FormsModule} from "@angular/forms";
+import { ChatProvider } from '../providers/chat/chat';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {FormsModule} from "@angular/forms";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    DataProvider
+    DataProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}
