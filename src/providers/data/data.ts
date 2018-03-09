@@ -3,6 +3,9 @@ import {User} from "firebase/app";
 import {Profile} from "../../models/profile/profiles";
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database-deprecated";
 import "rxjs/add/operator/take";
+import {AuthProvider} from "../auth/auth";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/mergeMap";
 
 /*
   Generated class for the DataProvider provider.
@@ -16,7 +19,7 @@ export class DataProvider {
   profileObject: FirebaseObjectObservable<Profile>;
   profileList: FirebaseListObservable<Profile>;
 
-  constructor(private database: AngularFireDatabase) {
+  constructor(private authService: AuthProvider, private database: AngularFireDatabase) {
   }
 
   searchUser(firstName: string){
@@ -43,5 +46,13 @@ export class DataProvider {
       console.log(e)
       return false;
     }
+  }
+
+
+  getAuthenticatedUserProfile(){
+    return this.authService.getAuthenticatedUser()
+      .map(user => user.uid)
+      .mergeMap(authId => this.database.object(`profiles/${authId}`))
+      .take(1);
   }
 }
