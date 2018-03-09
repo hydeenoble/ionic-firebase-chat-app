@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Profile} from "../../models/profile/profiles";
+import {Message} from "../../models/messages/message";
+import {MESSAGE_LIST} from "../../mocks/messages/messages";
 
 /**
  * Generated class for the MessagePage page.
@@ -18,7 +20,10 @@ export class MessagePage {
 
   selectedProfile: Profile;
 
+  messageList: Message[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.messageList = MESSAGE_LIST;
   }
 
   ionViewWillLoad() {

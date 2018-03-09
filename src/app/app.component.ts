@@ -14,7 +14,7 @@ export class MyApp {
               splashScreen: SplashScreen, private auth: AuthProvider) {
 
     this.auth.getAuthenticatedUser().subscribe(auth => {
-      !auth ? this.rootPage = 'LoginPage' : this.rootPage = 'TabsPage'
+      !auth ? this.rootPage = 'LoginPage' : this.rootPage = 'MessagePage'
     })
 
     platform.ready().then(() => {
