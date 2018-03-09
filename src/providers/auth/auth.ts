@@ -43,4 +43,9 @@ export class AuthProvider {
   getAuthenticatedUser(){
     return this.auth.authState;
   }
+
+  signOut(){
+    this.auth.auth.signOut();
+  }
 }
+
