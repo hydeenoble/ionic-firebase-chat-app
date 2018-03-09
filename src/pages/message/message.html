@@ -1,5 +1,5 @@
 <!--
-  Generated template for the SearchUserPage page.
+  Generated template for the MessagePage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>search-user</ion-title>
+    <ion-title>{{ selectedProfile?.firstName }} {{ selectedProfile?.lastName }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <profile-search (selectedProfile)="openChat($event)"></profile-search>
+
 </ion-content>

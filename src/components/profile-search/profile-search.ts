@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {DataProvider} from "../../providers/data/data";
 import {Profile} from "../../models/profile/profiles";
 
@@ -18,8 +18,10 @@ export class ProfileSearchComponent {
 
   profileList: Profile;
 
-  constructor(private data: DataProvider) {
+  @Output() selectedProfile : EventEmitter<Profile>;
 
+  constructor(private data: DataProvider) {
+    this.selectedProfile = new EventEmitter<Profile>();
   }
 
   searchUser(query: string){
@@ -33,5 +35,9 @@ export class ProfileSearchComponent {
       });
     }
 
+  }
+
+  selectProfile(profile: Profile){
+    this.selectedProfile.emit(profile);
   }
 }
