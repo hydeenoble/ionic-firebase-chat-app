@@ -6,6 +6,7 @@ import "rxjs/add/operator/take";
 import {AuthProvider} from "../auth/auth";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
+import { database } from 'firebase'
 
 /*
   Generated class for the DataProvider provider.
@@ -54,5 +55,20 @@ export class DataProvider {
       .map(user => user.uid)
       .mergeMap(authId => this.database.object(`profiles/${authId}`))
       .take(1);
+  }
+
+  setUserOnline(profile: Profile){
+    const ref = database().ref(`online-users/${profile.$key}`);
+
+    try{
+      ref.update({...profile});
+      ref.onDisconnect().remove();
+    }catch (e){
+      console.error(e);
+    }
+  }
+
+  getOnlineUsers(): FirebaseListObservable<Profile[]>{
+    return this.database.list(`online-users`);
   }
 }
