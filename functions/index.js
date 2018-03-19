@@ -7,6 +7,9 @@ const admin = require('firebase-admin');
 //  response.send("Hello from Firebase!");
 // });
 
+admin.initializeApp(functions.config().firebase);
+
+
 exports.addUserMessages = functions.database.ref(`/messages/{messageId}`)
   .onWrite(event => {
     const messageKey = event.data.key;
@@ -18,3 +21,7 @@ exports.addUserMessages = functions.database.ref(`/messages/{messageId}`)
     admin.database().ref(`/user-messages/${messageValue.userToId}/${messageValue.userFromId}`)
       .child(messageKey).set(1);
 });
+
+
+
+

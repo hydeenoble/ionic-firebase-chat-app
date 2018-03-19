@@ -1,7 +1,12 @@
 import {Profile} from "../profile/profiles";
 
 export interface Message{
-  user: Profile;
-  date: Date;
-  lastMessage: string;
+  userFrom: string;
+
+  userFromProfile: {
+    firstName: string;
+    lastName: string;
+  }
+
+  user
 }
