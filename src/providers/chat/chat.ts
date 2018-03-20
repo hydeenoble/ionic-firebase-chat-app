@@ -4,6 +4,11 @@ import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database
 import {Channel} from "../../models/channel/channel";
 import {ChannelMessage} from "../../models/channel/channel-message";
 import {Message} from "../../models/messages/message";
+import {AuthProvider} from "../auth/auth";
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/first';
+import {Observable} from "rxjs/Observable";
 
 /*
   Generated class for the ChatProvider provider.
@@ -14,7 +19,7 @@ import {Message} from "../../models/messages/message";
 @Injectable()
 export class ChatProvider {
 
-  constructor(private database: AngularFireDatabase) {
+  constructor(private auth: AuthProvider, private database: AngularFireDatabase) {
   }
 
   addChannel(channelName: string){
@@ -37,5 +42,20 @@ export class ChatProvider {
 
   async sendChat(message: Message){
     await this.database.list('/messages').push(message);
+  }
+
+  getChats(userTwoId: string){
+    return this.auth.getAuthenticatedUser()
+      .map(auth => auth.uid)
+      .mergeMap(uid => this.database.list(`/user-messages/${uid}/${userTwoId}`))
+      .mergeMap(chats => {
+        return Observable.forkJoin(
+          chats.map(chat => this.database.object(`/messages/${chat.$key}`)
+            .first()),
+          (...vals: Message[]) => {
+            return vals;
+          }
+        )
+      })
   }
 }
